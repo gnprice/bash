@@ -52,7 +52,7 @@ rm -f ${BASH_TSTOUT}
 
 echo Any output from any test, unless otherwise noted, indicates a possible anomaly
 
-for x in run-*
+for x in run-history
 do
 	case $x in
 	$0|run-minimal|run-gprof)	;;
