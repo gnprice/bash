@@ -17,6 +17,9 @@
 : ${TMPDIR:=/tmp}
 export TMPDIR
 
+: ${THIS_SH:=../bash}
+export THIS_SH
+
 # basic /bin/sh syntax
 SUFFIX=`${THIS_SH} -c 'echo $(( $RANDOM + $BASHPID ))'`
 
@@ -39,9 +42,6 @@ if [ "${BASH_VERSION+set}" = "set" ]; then
 else
 	[ "${SHELLOPTS+set}" = "set" ] && unset SHELLOPTS 2>/dev/null
 fi
-
-: ${THIS_SH:=../bash}
-export THIS_SH
 
 : ${BUILD_DIR:=..}
 export BUILD_DIR
