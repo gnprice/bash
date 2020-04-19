@@ -127,3 +127,38 @@ rm -f $TMPDIR/foohist-*
 
 ${THIS_SH} ./history2.sub
 ${THIS_SH} ./history3.sub
+
+
+HISTFILE=$TMPDIR/newhistory
+export HISTFILE
+
+HISTSIZE=32
+HISTFILESIZE=32
+echo
+set -o history
+history -c
+echo 0
+echo 1
+echo 2
+echo "(left
+mid
+right)"
+echo A
+echo B
+history -w
+set +o history
+
+echo
+printf $'HISTFILE=\n\cRleft\cO\cO\cO\cO\n' | HISTSIZE= ${THIS_SH} --norc -i 2>/dev/null
+echo
+printf $'HISTFILE=\n\cRleft\cO\cO\cO\cO\n' | HISTSIZE=8 ${THIS_SH} --norc -i 2>/dev/null
+
+
+input="$(cat $HISTFILE)
+"$'\cP\cP\cP\cO\cO
+'
+
+echo
+printf "$input" | HISTSIZE= HISTFILE= ${THIS_SH} --norc -i 2>/dev/null
+echo
+printf "$input" | HISTSIZE=6 HISTFILE= ${THIS_SH} --norc -i 2>/dev/null
